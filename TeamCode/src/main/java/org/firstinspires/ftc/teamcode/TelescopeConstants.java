@@ -11,25 +11,16 @@ public class TelescopeConstants {
         public static double KI = 0.00000005;
         public static double KD = 0.00000001;
 
-        public static double DEFAULT_POSITION = 0;
-        public static double DEFAULT_POSITION2 = 200;
         public static double TICK_TO_CM = 0.020444444;
+
+        public static double DEFAULT_POSITION = 200;
         public static double STARTING_HEIGHT = 0;
 
         public static double LOW_BASKET = 470;
         public static double HIGH_BASKET = 2420;
 
-        public static double INTAKE_SPECIMEN = 400;
-
-        public static double PRE_CLIMB = 400;
-
-        public static double PRE_SCORE_LOW_SPECIMEN = 0;
         public static double PRE_SCORE_HIGH_SPECIMEN = 1675;
-
         public static double SCORE_LOW_SPECIMEN = 0;
-        public static double DEFAULT_INTAKE = 150;
-
-
         public static double TOLERANCE = 15;
     }
 }

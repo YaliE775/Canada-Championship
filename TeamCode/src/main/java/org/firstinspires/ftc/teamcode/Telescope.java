@@ -22,6 +22,7 @@ public class Telescope  extends SubsystemBase {
                 TelescopeConstants.LiftConstants.KI,
                 TelescopeConstants.LiftConstants.KD
         );
+
         public static boolean isUsingPID = true;
 
         public Telescope(Telemetry telemetry, HardwareMap hardwareMap) {
@@ -33,12 +34,10 @@ public class Telescope  extends SubsystemBase {
             elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
             pid.setTolerance(TelescopeConstants.LiftConstants.TOLERANCE);
-
         }
 
         public void update() {
             double output = pid.calculate(elevatorMotor.getCurrentPosition());
-
             elevatorMotor.setPower(output);
         }
 
@@ -46,36 +45,8 @@ public class Telescope  extends SubsystemBase {
             return new InstantCommand(() -> pid.setSetPoint(setPoint), this);
         }
 
-        public Command setSetPoint(DoubleSupplier setPoint) {
-            return new InstantCommand(() -> pid.setSetPoint(setPoint.getAsDouble()), this);
-        }
-
-        public void add(double add) {
-            pid.setSetPoint(pid.getSetPoint() + add);
-        }
-
-        public double getSetpoint() {
-            return pid.getSetPoint();
-        }
-
         public Command defaultCommand() {
-            return new RunCommand(() -> pid.setSetPoint(TelescopeConstants.LiftConstants.DEFAULT_POSITION2), this);
-        }
-
-        public Command unUsePID() {
-            return new InstantCommand(() -> isUsingPID = false);
-        }
-
-        public Command climbePower() {
-            if (!isUsingPID) {
-                return new RunCommand(() -> elevatorMotor.setPower(-0.5));
-            }
-            return new InstantCommand();
-
-        }
-
-        public boolean isAtSetPoint() {
-            return pid.atSetPoint();
+            return new RunCommand(() -> pid.setSetPoint(TelescopeConstants.LiftConstants.DEFAULT_POSITION), this);
         }
 
         public static double getHeight() {
@@ -92,10 +63,7 @@ public class Telescope  extends SubsystemBase {
 
             telemetry.addData("Lift SetPoint", pid.getSetPoint());
             telemetry.addData("Lift Position", elevatorMotor.getCurrentPosition());
-            telemetry.addData("Lift At Set Point", pid.atSetPoint());
-            telemetry.addData("Lift Power" , elevatorMotor.getPower());
             telemetry.addData("Lift Height", getHeight());
-
             telemetry.update();
             pid.setSetPoint(pid.getSetPoint());
 
