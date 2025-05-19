@@ -53,11 +53,11 @@ public class Telescope  extends SubsystemBase {
         public void periodic() {
             currentPosition = elevatorMotor.getCurrentPosition();
 
-            telemetry.addData("Lift SetPoint", pid.getSetPoint());
             telemetry.addData("Lift Position", elevatorMotor.getCurrentPosition());
+            telemetry.addData("Lift SetPoint", pid.getSetPoint());
             telemetry.addData("Lift Height", getHeight());
-            telemetry.update();
             pid.setSetPoint(pid.getSetPoint());
+            telemetry.update();
 
         }
 
