@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 public class TelescopeConstants {
     @Config
-    public static class LiftConstants {
+    public static class telescopeConstants{
         public static final String ELEVATOR_MOTOR = "Lift";
 
         public static double KP = 0.0045;
