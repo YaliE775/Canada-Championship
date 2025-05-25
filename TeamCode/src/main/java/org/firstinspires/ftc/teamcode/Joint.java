@@ -26,7 +26,7 @@ public class Joint extends SubsystemBase {
 
         private final Telemetry telemetry;
 
-        private final DcMotorEx masterMotor;
+//        private final DcMotorEx masterMotor;
         private final DcMotorEx slaveMotor;
         private final Encoder encoder;
         private final Constraints lowConstraints;
@@ -49,17 +49,17 @@ public class Joint extends SubsystemBase {
             lowConstraints = new TrapezoidProfile.Constraints(JointConstants.ShoulderConstants.MAX_VELOCITY, JointConstants.ShoulderConstants.ACCELERATION);
             highConstraints = new Constraints(JointConstants.ShoulderConstants.MAX_VELOCITY, JointConstants.ShoulderConstants.ACCELERATION_HIGH);
 
-            masterMotor = hardwareMap.get(DcMotorEx.class, JointConstants.ShoulderConstants.MASTER_MOTOR);
-            masterMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            masterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            masterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//            masterMotor = hardwareMap.get(DcMotorEx.class, JointConstants.ShoulderConstants.MASTER_MOTOR);
+//            masterMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            masterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//            masterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
             slaveMotor = hardwareMap.get(DcMotorEx.class, JointConstants.ShoulderConstants.SLAVE_MOTOR);
             slaveMotor.setDirection(DcMotorSimple.Direction.FORWARD);
             slaveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             slaveMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-            encoder = new OverflowEncoder(new RawEncoder(masterMotor));
+            encoder = new OverflowEncoder(new RawEncoder(slaveMotor));
             encoder.setDirection(DcMotorSimple.Direction.REVERSE);
 
             pid.setTolerance(JointConstants.ShoulderConstants.TOLERANCE);
@@ -122,14 +122,14 @@ public class Joint extends SubsystemBase {
             double staticPower = JointConstants.ShoulderConstants.kS * Math.signum(pid.getPositionError());
 
 
-            masterMotor.setPower(output + ff + JointConstants.ShoulderConstants.kS );
+//            masterMotor.setPower(output + ff + JointConstants.ShoulderConstants.kS );
             slaveMotor.setPower(output + ff + JointConstants.ShoulderConstants.kS );
 
             telemetry.addData("Shoulder Power", output + ff  + staticPower);
             telemetry.addData("Shoulder FF", ff);
             telemetry.addData("Shoulder STATIC", staticPower);
             telemetry.addData("Shoulder Angle", angle);
-            telemetry.addData("Current Amps", masterMotor.getCurrent(CurrentUnit.AMPS));
+            telemetry.addData("Current Amps", slaveMotor.getCurrent(CurrentUnit.AMPS));
         }
 
         @Override
