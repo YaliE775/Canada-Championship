@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
+
+import com.acmerobotics.roadrunner.ftc.LazyHardwareMapImu;
 import com.acmerobotics.roadrunner.ftc.LazyImu;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -12,8 +14,11 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.DriveConstants;
+
 import java.util.function.DoubleSupplier;
 
 public class Drive extends SubsystemBase {
@@ -39,18 +44,8 @@ public class Drive extends SubsystemBase {
 
     public Drive(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
-
-
-        imu = new LazyImu() {
-            @NonNull
-            @Override
-            public IMU get() {
-                return null;
-            }
-        };
 //  this is how we did it in the previous document:
-// imu = new LazyImu(hardwareMap, "imu", new RevHubOrientationOnRobot
-//                (Constants.DriveConstants.LOGO_DIRECTION, Constants.DriveConstants.USB_DIRECTION));
+        imu = new LazyHardwareMapImu(hardwareMap, "imu", new RevHubOrientationOnRobot(DriveConstants.driveConstants.LOGO_DIRECTION, DriveConstants.driveConstants.USB_DIRECTION));
 
         FR = new Motor(hardwareMap, DriveConstants.driveConstants.MOTOR_FR);
         FR.setRunMode(Motor.RunMode.RawPower);
