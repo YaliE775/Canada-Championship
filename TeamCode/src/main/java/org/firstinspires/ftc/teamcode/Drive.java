@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import androidx.annotation.NonNull;
-
 import com.acmerobotics.roadrunner.ftc.LazyHardwareMapImu;
 import com.acmerobotics.roadrunner.ftc.LazyImu;
 import com.arcrobotics.ftclib.command.Command;
@@ -13,12 +11,8 @@ import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.DriveConstants;
-
 import java.util.function.DoubleSupplier;
 
 public class Drive extends SubsystemBase {
@@ -36,33 +30,34 @@ public class Drive extends SubsystemBase {
     private final LazyImu imu;
 
     private PIDController pid = new PIDController(
-            DriveConstants.driveConstants.KP,
-            DriveConstants.driveConstants.KI,
-            DriveConstants.driveConstants.KD
+            DriveConstants.KP,
+            DriveConstants.KI,
+            DriveConstants.KD
     );
 
 
     public Drive(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
-//  this is how we did it in the previous document:
-        imu = new LazyHardwareMapImu(hardwareMap, "imu", new RevHubOrientationOnRobot(DriveConstants.driveConstants.LOGO_DIRECTION, DriveConstants.driveConstants.USB_DIRECTION));
+        imu = new LazyHardwareMapImu(hardwareMap, "imu",
+        new RevHubOrientationOnRobot(DriveConstants.LOGO_DIRECTION,
+        DriveConstants.USB_DIRECTION));
 
-        FR = new Motor(hardwareMap, DriveConstants.driveConstants.MOTOR_FR);
+        FR = new Motor(hardwareMap, DriveConstants.MOTOR_FR);
         FR.setRunMode(Motor.RunMode.RawPower);
         FR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         FR.setInverted(true);
 
-        LB = new Motor(hardwareMap, DriveConstants.driveConstants.MOTOR_LB);
+        LB = new Motor(hardwareMap, DriveConstants.MOTOR_LB);
         LB.setRunMode(Motor.RunMode.RawPower);
         LB.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         LB.setInverted(false);
 
-        RB = new Motor(hardwareMap, DriveConstants.driveConstants.MOTOR_RB);
+        RB = new Motor(hardwareMap, DriveConstants.MOTOR_RB);
         RB.setRunMode(Motor.RunMode.RawPower);
         RB.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         RB.setInverted(true);
 
-        FL = new Motor(hardwareMap, DriveConstants.driveConstants.MOTOR_FL);
+        FL = new Motor(hardwareMap, DriveConstants.MOTOR_FL);
         FL.setRunMode(Motor.RunMode.RawPower);
         FL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         FL.setInverted(false);
@@ -70,7 +65,7 @@ public class Drive extends SubsystemBase {
         mecanum = new MecanumDrive(false, FL, FR, LB, RB);
 
 
-        pid.setTolerance(DriveConstants.driveConstants.TOLERANCE);
+        pid.setTolerance(DriveConstants.TOLERANCE);
 
     }
 
@@ -116,11 +111,11 @@ public class Drive extends SubsystemBase {
     }
 
     public Command rotateToWall() {
-        return setDriveAngle(DriveConstants.driveConstants.WALL_ROTATE);
+        return setDriveAngle(DriveConstants.WALL_ROTATE);
     }
 
     public boolean isAtSetPoint() {
-        return setPointCount == DriveConstants.driveConstants.MAX_SET_POINT_COUNT;
+        return setPointCount == DriveConstants.MAX_SET_POINT_COUNT;
     }
 
     public Command resetIMU() {
@@ -129,11 +124,11 @@ public class Drive extends SubsystemBase {
     }
 
     public Command takeFromObservation() {
-        return new RunCommand(() -> setDriveAngle(DriveConstants.driveConstants.INTAKE_FROM_OBSERVATION));
+        return new RunCommand(() -> setDriveAngle(DriveConstants.INTAKE_FROM_OBSERVATION));
     }
 
     public Command autoStartPosition() {
-        return new RunCommand(() -> setDriveAngle(DriveConstants.driveConstants.START_AUTO_AGAIN));
+        return new RunCommand(() -> setDriveAngle(DriveConstants.START_AUTO_AGAIN));
     }
 
 

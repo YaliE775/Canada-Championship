@@ -6,21 +6,20 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
 public class Teleop extends CommandOpMode {
-        private GamepadEx driverController;
 
-        private Drive drive;
+    private GamepadEx driverController;
 
 
-        @Override
+    @Override
         public void initialize() {
             telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-            drive = new Drive(hardwareMap, telemetry);
+        Drive drive = new Drive(hardwareMap, telemetry);
 
             driverController = new GamepadEx(gamepad1);
 
             drive.setDefaultCommand(
-                    drive.driveFieldCentric(
+                    drive.driveRobotCentric(
                             ()-> -driverController.getLeftY(),
                             ()-> -driverController.getLeftX(),
                             ()-> -driverController.getRightX())
@@ -36,5 +35,4 @@ public class Teleop extends CommandOpMode {
             super.run();
             telemetry.update();
         }
-}
-
+    }
