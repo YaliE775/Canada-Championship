@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.sybsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import java.util.function.DoubleSupplier;
 import com.acmerobotics.dashboard.config.Config;
@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.ftc.OverflowEncoder;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.arcrobotics.ftclib.controller.PIDController;
@@ -27,6 +26,7 @@ public class Joint extends SubsystemBase {
 
     private final Telemetry telemetry;
     private final DcMotorEx slaveMotor;
+    private final DcMotorEx masterMotor;
     private final Encoder encoder;
     private final Constraints lowConstraints;
     private final Constraints highConstraints;
@@ -52,6 +52,11 @@ public class Joint extends SubsystemBase {
         slaveMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         slaveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slaveMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        masterMotor = hardwareMap.get(DcMotorEx.class, Constants.ShoulderConstants.MASTER_MOTOR);
+        masterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        masterMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        masterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         encoder = new OverflowEncoder(new RawEncoder(slaveMotor));
         encoder.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -92,7 +97,7 @@ public class Joint extends SubsystemBase {
         double staticPower = Constants.ShoulderConstants.kS * Math.signum(pid.getPositionError());
 
 
-        slaveMotor.setPower(output + ff + Constants.ShoulderConstants.kS );
+        masterMotor.setPower(output + ff + Constants.ShoulderConstants.kS );
 
         telemetry.addData("Shoulder Power", output + ff  + staticPower);
         telemetry.addData("Shoulder FF", ff);
