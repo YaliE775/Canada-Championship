@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.Telescope;
+import org.firstinspires.ftc.teamcode.sybsystems.Telescope;
 
 @TeleOp
 public class TelescopeTeleop extends CommandOpMode {
