@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.JointConstants;
+
 public class IntakeJoint extends SubsystemBase {
 
         private Telemetry telemetry;
@@ -19,8 +19,8 @@ public class IntakeJoint extends SubsystemBase {
         public IntakeJoint(HardwareMap hardwareMap, Telemetry telemetry) {
             this.telemetry = telemetry;
 
-            rightAngle = new SimpleServo(hardwareMap, JointConstants.jointConstants.RIGHT_ANGLE_SERVO, 0, 1);
-            leftAngle = new SimpleServo(hardwareMap, JointConstants.jointConstants.LEFT_ANGLE_SERVO, 0, 1);
+            rightAngle = new SimpleServo(hardwareMap, JointConstants.RIGHT_ANGLE_SERVO, 0, 1);
+            leftAngle = new SimpleServo(hardwareMap, JointConstants.LEFT_ANGLE_SERVO, 0, 1);
 
             rightAngle.setInverted(true);
             leftAngle.setInverted(false);
@@ -43,24 +43,21 @@ public class IntakeJoint extends SubsystemBase {
 
         public Command defaultCommand() {
             return new InstantCommand(() -> {
-                rightAngle.setPosition(JointConstants.jointConstants.DEFAULT_POSITION2);
-                leftAngle.setPosition(JointConstants.jointConstants.DEFAULT_POSITION2);
+                rightAngle.setPosition(JointConstants.DEFAULT_POSITION2);
+                leftAngle.setPosition(JointConstants.DEFAULT_POSITION2);
             },this).andThen(new WaitUntilCommand(() -> false));
         }
 
         public Command intakeSubmersible() {
             return new InstantCommand(() -> {
-                rightAngle.setPosition(JointConstants.jointConstants.DEFAULT_POSITION);
-                leftAngle.setPosition(JointConstants.jointConstants.DEFAULT_POSITION);
+                rightAngle.setPosition(JointConstants.DEFAULT_POSITION);
+                leftAngle.setPosition(JointConstants.DEFAULT_POSITION);
             },this).andThen(new WaitUntilCommand(() -> false));
         }
 
         @Override
         public void periodic() {
-            telemetry.addData("manipulator angle is", rightAngle.getAngle());
-            telemetry.addData("manipulator angle is", leftAngle.getAngle());
+            telemetry.addData("manipulator angle ", rightAngle.getAngle());
+            telemetry.addData("manipulator angle ", leftAngle.getAngle());
         }
-
     }
-
-

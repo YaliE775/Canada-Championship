@@ -23,5 +23,6 @@ public class Teleop extends CommandOpMode{
 
             controller.getGamepadButton(GamepadKeys.Button.DPAD_UP).whileActiveContinuous(intakeJoint.defaultCommand());
             controller.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whileActiveContinuous(intakeJoint.intakeSubmersible());
-        }
+
+    }
 }
