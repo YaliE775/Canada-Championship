@@ -113,5 +113,4 @@ public class Joint extends SubsystemBase {
         telemetry.addData("Shoulder SetPoint", pid.getSetPoint());
         telemetry.addData("Shoulder Position", encoder.getPositionAndVelocity().position);
     }
-
 }

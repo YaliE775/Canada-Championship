@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.roadrunner.ftc.LazyHardwareMapImu;
 import com.acmerobotics.roadrunner.ftc.LazyImu;
@@ -13,6 +13,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.DriveConstants;
 import java.util.function.DoubleSupplier;
 
 public class Drive extends SubsystemBase {
@@ -72,10 +73,8 @@ public class Drive extends SubsystemBase {
                         x.getAsDouble(),
                         y.getAsDouble(),
                         rx.getAsDouble()
-
                 ), this
         );
-
     }
 
     public Command driveFieldCentric(DoubleSupplier y, DoubleSupplier x, DoubleSupplier rx) {
@@ -85,10 +84,8 @@ public class Drive extends SubsystemBase {
                         y.getAsDouble(),
                         rx.getAsDouble(),
                         imu.get().getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES)
-
                 ), this
         );
-
     }
 
     public Command setDriveAngle(double setPoint) {
@@ -99,9 +96,11 @@ public class Drive extends SubsystemBase {
                     mecanum.driveRobotCentric(0, 0, power);
                     if (pid.atSetPoint()) {
                         setPointCount++;
+
                     } else {
                         setPointCount = 0;
                     }
+
                 }, this).interruptOn(() -> isAtSetPoint() && pid.getSetPoint() == setPoint
         ).withTimeout(1000);
 
@@ -117,7 +116,6 @@ public class Drive extends SubsystemBase {
 
     public Command resetIMU() {
         return new InstantCommand(() -> imu.get().resetYaw());
-
     }
 
     public Command takeFromObservation() {

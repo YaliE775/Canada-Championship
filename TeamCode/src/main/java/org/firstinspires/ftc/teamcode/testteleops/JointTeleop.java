@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.Joint;
 
@@ -27,7 +26,7 @@ public class JointTeleop extends CommandOpMode {
         controller.getGamepadButton(GamepadKeys.Button.X).whenPressed(joint.setSetPoint(Constants.ShoulderConstants.SCORE_SPECIMEN_HIGH));
         controller.getGamepadButton(GamepadKeys.Button.Y).whenPressed(joint.setSetPoint(Constants.ShoulderConstants.SCORE_ANGLE_BASKET));
 
-}
+    }
 
     @Override
     public void run() {

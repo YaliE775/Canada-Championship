@@ -48,6 +48,7 @@ public class Telescope extends SubsystemBase {
 
     public Command defaultCommand() {
         return new RunCommand(() -> pid.setSetPoint(Constants.TelescopeConstants.DEFAULT_POSITION),this);
+
     }
 
     @Override

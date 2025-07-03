@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.Telescope;
 
@@ -25,6 +24,7 @@ public class TelescopeTeleop extends CommandOpMode {
             controller.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whileActiveContinuous(telescope.setSetPoint(Constants.TelescopeConstants.HIGH_BASKET));
             controller.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whileActiveContinuous(telescope.setSetPoint(Constants.TelescopeConstants.SCORE_LOW_SPECIMEN));
             controller.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whileActiveContinuous(telescope.setSetPoint(Constants.TelescopeConstants.PRE_SCORE_HIGH_SPECIMEN));
+
         }
     }
 

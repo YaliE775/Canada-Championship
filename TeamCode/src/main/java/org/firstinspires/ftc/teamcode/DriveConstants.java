@@ -5,6 +5,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 @Config
 public class DriveConstants {
+
         public static final String MOTOR_FR = "RF";
         public static final String MOTOR_LB = "LR";
         public static final String MOTOR_FL = "LF";
@@ -25,7 +26,6 @@ public class DriveConstants {
 
         public static int WALL_ROTATE = -90;
         public static int INTAKE_FROM_OBSERVATION = 180;
-
         public static int START_AUTO_AGAIN = -180;
 
-    }
+}
