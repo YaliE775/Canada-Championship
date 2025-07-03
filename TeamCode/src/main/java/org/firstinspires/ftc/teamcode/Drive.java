@@ -16,7 +16,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import java.util.function.DoubleSupplier;
 
 public class Drive extends SubsystemBase {
-
     private final Telemetry telemetry;
 
     private final Motor RB;
@@ -34,7 +33,6 @@ public class Drive extends SubsystemBase {
             DriveConstants.KI,
             DriveConstants.KD
     );
-
 
     public Drive(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -63,7 +61,6 @@ public class Drive extends SubsystemBase {
         FL.setInverted(false);
 
         mecanum = new MecanumDrive(false, FL, FR, LB, RB);
-
 
         pid.setTolerance(DriveConstants.TOLERANCE);
 
@@ -130,7 +127,6 @@ public class Drive extends SubsystemBase {
     public Command autoStartPosition() {
         return new RunCommand(() -> setDriveAngle(DriveConstants.START_AUTO_AGAIN));
     }
-
 
     @Override
     public void periodic() {
