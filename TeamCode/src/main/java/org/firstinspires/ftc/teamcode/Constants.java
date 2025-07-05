@@ -7,8 +7,8 @@ public class Constants {
         public static final String RIGHT_ANGLE_SERVO = "Angle Right";
         public static final String LEFT_ANGLE_SERVO = "Angle Left";
 
-        public static double DEFAULT_POSITION = 0.1;
-        public static double DEFAULT_POSITION2 = 0.5;
+        public static double INTAKE_POSITION = 0.1;
+        public static double DEFAULT_POSITION = 0.5;
     }
 
     @Config

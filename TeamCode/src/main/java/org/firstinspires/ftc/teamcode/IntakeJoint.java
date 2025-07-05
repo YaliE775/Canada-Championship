@@ -34,15 +34,15 @@ public class IntakeJoint extends SubsystemBase {
     }
     //TODO: ADD CORRECT VARIABLES
     public Command autoDefaultCommand() {
-        return setAngle(1).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(Constants.IntakeConstants.DEFAULT_POSITION).andThen(new WaitUntilCommand(() -> false));
     }
 
     public Command defaultCommand() {
-        return setAngle(1).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(Constants.IntakeConstants.DEFAULT_POSITION).andThen(new WaitUntilCommand(() -> false));
     }
 
     public Command intakeSubmersible() {
-        return setAngle(1).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(Constants.IntakeConstants.INTAKE_POSITION).andThen(new WaitUntilCommand(() -> false));
     }
 
     @Override
