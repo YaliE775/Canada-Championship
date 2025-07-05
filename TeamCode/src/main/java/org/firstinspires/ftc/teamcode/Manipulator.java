@@ -32,7 +32,6 @@ public class Manipulator extends SubsystemBase {
             leftAngle.setPosition(setAngle);
         }, this);
     }
-    //TODO: ADD CORRECT VARIABLES
     public Command autoDefaultCommand() {
         return setAngle(Constants.ManipulatorConstants.DEFAULT_POSITION).andThen(new WaitUntilCommand(() -> false));
     }
