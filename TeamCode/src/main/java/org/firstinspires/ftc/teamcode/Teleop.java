@@ -8,9 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
 
 public class Teleop extends CommandOpMode {
-
     private GamepadEx driverController;
-
 
     @Override
         public void initialize() {
