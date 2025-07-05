@@ -18,8 +18,8 @@ public class IntakeJoint extends SubsystemBase {
     public IntakeJoint(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
-        rightAngle = new SimpleServo(hardwareMap, JointConstants.RIGHT_ANGLE_SERVO, 0, 1);
-        leftAngle = new SimpleServo(hardwareMap, JointConstants.LEFT_ANGLE_SERVO, 0, 1);
+        rightAngle = new SimpleServo(hardwareMap, Constants.IntakeConstants.RIGHT_ANGLE_SERVO, 0, 1);
+        leftAngle = new SimpleServo(hardwareMap, Constants.IntakeConstants.LEFT_ANGLE_SERVO, 0, 1);
 
         rightAngle.setInverted(true);
         leftAngle.setInverted(false);
@@ -32,26 +32,17 @@ public class IntakeJoint extends SubsystemBase {
             leftAngle.setPosition(setAngle);
         }, this);
     }
-
+    //TODO: ADD CORRECT VARIABLES
     public Command autoDefaultCommand() {
-        return new InstantCommand(() -> {
-            rightAngle.setPosition(rightAngle.getPosition());
-            leftAngle.setPosition(leftAngle.getPosition());
-        },this).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(1).andThen(new WaitUntilCommand(() -> false));
     }
 
     public Command defaultCommand() {
-        return new InstantCommand(() -> {
-            rightAngle.setPosition(JointConstants.DEFAULT_POSITION2);
-            leftAngle.setPosition(JointConstants.DEFAULT_POSITION2);
-        },this).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(1).andThen(new WaitUntilCommand(() -> false));
     }
 
     public Command intakeSubmersible() {
-        return new InstantCommand(() -> {
-            rightAngle.setPosition(JointConstants.DEFAULT_POSITION);
-            leftAngle.setPosition(JointConstants.DEFAULT_POSITION);
-        },this).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(1).andThen(new WaitUntilCommand(() -> false));
     }
 
     @Override
