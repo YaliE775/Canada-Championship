@@ -20,7 +20,7 @@ public class Telescope extends SubsystemBase {
             Constants.TelescopeConstants.KD
     );
 
-    private double currentPosition;
+    private static double currentPosition;
 
     public Telescope(Telemetry telemetry, HardwareMap hardwareMap) {
         this.telemetry = telemetry;
@@ -30,49 +30,26 @@ public class Telescope extends SubsystemBase {
         elevatorMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-<<<<<<< HEAD
-        public Command setSetPoint(double setPoint) {
-            return new InstantCommand(() -> pid.setSetPoint(setPoint), this);
-        }
 
-        public Command defaultCommand() {
-            return new RunCommand(() -> pid.setSetPoint(TelescopeConstants.telescopeConstants.DEFAULT_POSITION), this);
-        }
-
-        public static double getHeight() {
-            return (currentPosition * TelescopeConstants.telescopeConstants.TICK_TO_CM) + TelescopeConstants.telescopeConstants.STARTING_HEIGHT;
-        }
-
-        @Override
-        public void periodic() {
-            currentPosition = elevatorMotor.getCurrentPosition();
-
-            telemetry.addData("Lift Position", elevatorMotor.getCurrentPosition());
-            telemetry.addData("Lift SetPoint", pid.getSetPoint());
-            telemetry.addData("Lift Height", getHeight());
-            pid.setSetPoint(pid.getSetPoint());
-            telemetry.update();
-
-        }
-=======
-        pid.setTolerance(Constants.TelescopeConstants.TOLERANCE);
->>>>>>> 1f9a89ac2a6570aafd4a80481505d9345bca4191
+    pid.setTolerance(Constants.TelescopeConstants.TOLERANCE);
 
     }
 
     public void update() {
         double output = pid.calculate(elevatorMotor.getCurrentPosition());
         elevatorMotor.setPower(output);
-
     }
 
     public Command setSetPoint(double setPoint) {
         return new InstantCommand(() -> pid.setSetPoint(setPoint),this);
-
     }
 
     public Command defaultCommand() {
         return new RunCommand(() -> pid.setSetPoint(Constants.TelescopeConstants.DEFAULT_POSITION),this);
+    }
+
+    public static double getHeight() {
+        return (currentPosition * Constants.TelescopeConstants.TICK_TO_CM) + Constants.TelescopeConstants.STARTING_HEIGHT;
     }
 
     @Override
@@ -81,10 +58,10 @@ public class Telescope extends SubsystemBase {
 
         telemetry.addData("Lift SetPoint", pid.getSetPoint());
         telemetry.addData("Lift Position", elevatorMotor.getCurrentPosition());
+        telemetry.addData("telescope position", currentPosition);
 
         pid.setSetPoint(pid.getSetPoint());
         telemetry.update();
-
     }
 
 }
