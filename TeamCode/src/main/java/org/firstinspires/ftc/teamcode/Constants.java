@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 
 public class Constants {
-    public static class IntakeConstants {
+    public static class ManipulatorConstants {
         public static final String RIGHT_ANGLE_SERVO = "Angle Right";
         public static final String LEFT_ANGLE_SERVO = "Angle Left";
 

@@ -9,17 +9,17 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class IntakeJoint extends SubsystemBase {
+public class Manipulator extends SubsystemBase {
     private Telemetry telemetry;
 
     private final ServoEx rightAngle;
     private final ServoEx leftAngle;
 
-    public IntakeJoint(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Manipulator(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
-        rightAngle = new SimpleServo(hardwareMap, Constants.IntakeConstants.RIGHT_ANGLE_SERVO, 0, 1);
-        leftAngle = new SimpleServo(hardwareMap, Constants.IntakeConstants.LEFT_ANGLE_SERVO, 0, 1);
+        rightAngle = new SimpleServo(hardwareMap, Constants.ManipulatorConstants.RIGHT_ANGLE_SERVO, 0, 1);
+        leftAngle = new SimpleServo(hardwareMap, Constants.ManipulatorConstants.LEFT_ANGLE_SERVO, 0, 1);
 
         rightAngle.setInverted(true);
         leftAngle.setInverted(false);
@@ -34,15 +34,15 @@ public class IntakeJoint extends SubsystemBase {
     }
     //TODO: ADD CORRECT VARIABLES
     public Command autoDefaultCommand() {
-        return setAngle(Constants.IntakeConstants.DEFAULT_POSITION).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(Constants.ManipulatorConstants.DEFAULT_POSITION).andThen(new WaitUntilCommand(() -> false));
     }
 
     public Command defaultCommand() {
-        return setAngle(Constants.IntakeConstants.DEFAULT_POSITION).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(Constants.ManipulatorConstants.DEFAULT_POSITION).andThen(new WaitUntilCommand(() -> false));
     }
 
     public Command intakeSubmersible() {
-        return setAngle(Constants.IntakeConstants.INTAKE_POSITION).andThen(new WaitUntilCommand(() -> false));
+        return setAngle(Constants.ManipulatorConstants.INTAKE_POSITION).andThen(new WaitUntilCommand(() -> false));
     }
 
     @Override
