@@ -10,54 +10,53 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class IntakeJoint extends SubsystemBase {
+    private Telemetry telemetry;
 
-        private Telemetry telemetry;
+    private final ServoEx rightAngle;
+    private final ServoEx leftAngle;
 
-        private final ServoEx rightAngle;
-        private final ServoEx leftAngle;
+    public IntakeJoint(HardwareMap hardwareMap, Telemetry telemetry) {
+        this.telemetry = telemetry;
 
-        public IntakeJoint(HardwareMap hardwareMap, Telemetry telemetry) {
-            this.telemetry = telemetry;
+        rightAngle = new SimpleServo(hardwareMap, JointConstants.RIGHT_ANGLE_SERVO, 0, 1);
+        leftAngle = new SimpleServo(hardwareMap, JointConstants.LEFT_ANGLE_SERVO, 0, 1);
 
-            rightAngle = new SimpleServo(hardwareMap, JointConstants.RIGHT_ANGLE_SERVO, 0, 1);
-            leftAngle = new SimpleServo(hardwareMap, JointConstants.LEFT_ANGLE_SERVO, 0, 1);
+        rightAngle.setInverted(true);
+        leftAngle.setInverted(false);
 
-            rightAngle.setInverted(true);
-            leftAngle.setInverted(false);
-
-        }
-
-        public Command setAngle(double setAngle) {
-            return new InstantCommand(() -> {
-                rightAngle.setPosition(setAngle);
-                leftAngle.setPosition(setAngle);
-            }, this);
-        }
-
-        public Command autoDefaultCommand() {
-            return new InstantCommand(() -> {
-                rightAngle.setPosition(rightAngle.getPosition());
-                leftAngle.setPosition(leftAngle.getPosition());
-            },this).andThen(new WaitUntilCommand(() -> false));
-        }
-
-        public Command defaultCommand() {
-            return new InstantCommand(() -> {
-                rightAngle.setPosition(JointConstants.DEFAULT_POSITION2);
-                leftAngle.setPosition(JointConstants.DEFAULT_POSITION2);
-            },this).andThen(new WaitUntilCommand(() -> false));
-        }
-
-        public Command intakeSubmersible() {
-            return new InstantCommand(() -> {
-                rightAngle.setPosition(JointConstants.DEFAULT_POSITION);
-                leftAngle.setPosition(JointConstants.DEFAULT_POSITION);
-            },this).andThen(new WaitUntilCommand(() -> false));
-        }
-
-        @Override
-        public void periodic() {
-            telemetry.addData("manipulator angle ", rightAngle.getAngle());
-            telemetry.addData("manipulator angle ", leftAngle.getAngle());
-        }
     }
+
+    public Command setAngle(double setAngle) {
+        return new InstantCommand(() -> {
+            rightAngle.setPosition(setAngle);
+            leftAngle.setPosition(setAngle);
+        }, this);
+    }
+
+    public Command autoDefaultCommand() {
+        return new InstantCommand(() -> {
+            rightAngle.setPosition(rightAngle.getPosition());
+            leftAngle.setPosition(leftAngle.getPosition());
+        },this).andThen(new WaitUntilCommand(() -> false));
+    }
+
+    public Command defaultCommand() {
+        return new InstantCommand(() -> {
+            rightAngle.setPosition(JointConstants.DEFAULT_POSITION2);
+            leftAngle.setPosition(JointConstants.DEFAULT_POSITION2);
+        },this).andThen(new WaitUntilCommand(() -> false));
+    }
+
+    public Command intakeSubmersible() {
+        return new InstantCommand(() -> {
+            rightAngle.setPosition(JointConstants.DEFAULT_POSITION);
+            leftAngle.setPosition(JointConstants.DEFAULT_POSITION);
+        },this).andThen(new WaitUntilCommand(() -> false));
+    }
+
+    @Override
+    public void periodic() {
+        telemetry.addData("manipulator angle ", rightAngle.getAngle());
+        telemetry.addData("manipulator angle ", leftAngle.getAngle());
+    }
+}
