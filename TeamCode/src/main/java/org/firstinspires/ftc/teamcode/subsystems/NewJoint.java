@@ -25,7 +25,7 @@ public class NewJoint extends SubsystemBase {
         Motor slave = new Motor(hardwareMap, "Angle_Slave");
         Motor master = new Motor(hardwareMap, "Angle_Master");
 
-        MotorGroup myMotors = new MotorGroup(master, slave);
+        MotorGroup bothMotors = new MotorGroup(master, slave);
 
         slave.setRunMode(Motor.RunMode.PositionControl);
         master.setRunMode(Motor.RunMode.PositionControl);
@@ -36,5 +36,8 @@ public class NewJoint extends SubsystemBase {
       return new RunCommand(()-> bothMotors.setTargetPosition(1200));
     };
 
-    
+    @Override
+    public void periodic() {
+        telemetry.update();
+    }
 }

@@ -16,8 +16,9 @@ public class TelescopeTeleop extends CommandOpMode {
             telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
             GamepadEx controller = new GamepadEx(gamepad1);
-            NewJoint telescope = new NewJoint(telemetry, hardwareMap);
+            NewJoint newJoint = new NewJoint(telemetry, hardwareMap);
 
+            controller.getGamepadButton(GamepadKeys.Button.B).whenPressed(newJoint.active());
         }
     }
 
